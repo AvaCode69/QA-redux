@@ -1,12 +1,15 @@
 import React from "react";
 import SingleQuestion from "./SingleQuestion";
 import { useSelector, useDispatch } from "react-redux";
-import { removeAll, sort } from "../features/question/questionSlice";
+import { removeAll, sort } from "../../features/question/questionSlice";
 import { FaInfoCircle } from "react-icons/fa";
+import { RootState } from "../../store";
 
 const QuestionsContainer = () => {
   const dispatch = useDispatch();
-  const { questionItems, activeId } = useSelector((store) => store.QA);
+  const { questionItems, activeId } = useSelector(
+    (store: RootState) => store.QA
+  );
   return (
     <div className="created-question">
       <div className="title-box">
@@ -14,7 +17,7 @@ const QuestionsContainer = () => {
 
         <span className="tooltip">
           <FaInfoCircle />
-          <span id="bottom" class="tooltiptext">
+          <span id="bottom" className="tooltiptext">
             You can find Created Questions and Answers here
           </span>
         </span>

@@ -3,22 +3,40 @@ import {
   toggleQuestion,
   deleteQuestion,
   editQuestion,
-} from "../features/question/questionSlice";
+} from "../../features/question/questionSlice";
 import { useState, useEffect } from "react";
 import QuestionForm from "./QuestionForm";
 import QuestionDetails from "./QuestionDetails";
+import React from "react";
 
-const SingleQuestion = ({ id, question, answer, activeId }) => {
+interface SingleQuestionProps {
+  id: string;
+  question: string;
+  answer: string;
+  activeId: string | null;
+}
+
+const SingleQuestion: React.FC<SingleQuestionProps> = ({
+  id,
+  question,
+  answer,
+  activeId,
+}) => {
   const isActive = id === activeId;
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+  const [state, setState] = useState<{
+    isOpen: boolean;
+    editing: boolean;
+    inputValue: { question: string; answer: string; id: string };
+    error: string;
+  }>({
     isOpen: isActive,
     editing: false,
-    inputValue: { question, answer },
+    inputValue: { question, answer, id },
     error: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setState({
       ...state,
@@ -36,7 +54,7 @@ const SingleQuestion = ({ id, question, answer, activeId }) => {
       setState({ ...state, error: "Please enter text" });
       return;
     }
-    dispatch(editQuestion({ id, inputValue: state.inputValue }));
+    dispatch(editQuestion({ id: id, inputValue: state.inputValue }));
     setState({ ...state, editing: false });
   };
 

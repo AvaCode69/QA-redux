@@ -1,6 +1,14 @@
 import React from "react";
 
-const QuestionDetails = ({
+interface QuestionDetailsProps {
+  inputValue: { question: string; answer: string };
+  handleToggle: () => void;
+  handleEditClick: () => void;
+  handleDeleteClick: () => void;
+  isActive: boolean;
+}
+
+const QuestionDetails: React.FC<QuestionDetailsProps> = ({
   inputValue,
   handleToggle,
   handleEditClick,

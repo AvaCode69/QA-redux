@@ -1,33 +1,51 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 
-let defaultList = [];
-try {
-  defaultList = JSON.parse(localStorage.getItem("list")) || [];
-} catch (error) {
-  console.error("Error parsing localStorage data:", error);
+interface QuestionItem {
+  question: string;
+  answer: string;
+  id: string;
 }
 
-const setLocalStorage = (items) => {
+interface QAState {
+  questionItems: QuestionItem[];
+  isLoading: boolean;
+  activeId: string | null;
+}
+
+const defaultList: QuestionItem[] = (() => {
+  try {
+    const storedList = localStorage.getItem("list");
+    return storedList ? JSON.parse(storedList) : [];
+  } catch (error) {
+    console.error("Error parsing localStorage data:", error);
+    return [];
+  }
+})();
+
+const setLocalStorage = (items: QuestionItem[]) => {
   localStorage.setItem("list", JSON.stringify(items));
 };
 
-const initialState = {
-  questionItems: defaultList || [],
+const initialState: QAState = {
+  questionItems: defaultList,
   isLoading: false,
   activeId: null,
 };
 
 const addItemAsync = createAsyncThunk(
   "QA/addItem",
-  async (payload, { getState }) => {
+  async (payload: { question: string; answer: string }, { getState }) => {
     const { question, answer } = payload;
-    const newQuestion = {
+    const newQuestion: QuestionItem = {
       question,
       answer,
       id: nanoid(),
     };
-    const newQuestionItems = [...getState().QA.questionItems, newQuestion];
+
+    const state = getState() as { QA: QAState }; // Explicitly specify the state type
+
+    const newQuestionItems = [...state.QA.questionItems, newQuestion];
 
     // Simulating an API call delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -49,14 +67,17 @@ const questionSlice = createSlice({
       state.questionItems.sort((a, b) => a.question.localeCompare(b.question));
       setLocalStorage(state.questionItems);
     },
-    deleteQuestion: (state, action) => {
+    deleteQuestion: (state, action: PayloadAction<string>) => {
       const id = action.payload;
       state.questionItems = state.questionItems.filter(
         (item) => item.id !== id
       );
       setLocalStorage(state.questionItems);
     },
-    editQuestion: (state, action) => {
+    editQuestion: (
+      state,
+      action: PayloadAction<{ id: string; inputValue: QuestionItem }>
+    ) => {
       const { id, inputValue } = action.payload;
       const questionItem = state.questionItems.find((item) => item.id === id);
       if (questionItem) {
@@ -65,7 +86,7 @@ const questionSlice = createSlice({
       }
       setLocalStorage(state.questionItems);
     },
-    toggleQuestion: (state, action) => {
+    toggleQuestion: (state, action: PayloadAction<string>) => {
       const newActiveId =
         action.payload === state.activeId ? null : action.payload;
       state.activeId = newActiveId;
@@ -86,14 +107,8 @@ const questionSlice = createSlice({
   },
 });
 
-export const {
-  addItem,
-  toggleQuestion,
-  removeAll,
-  sort,
-  deleteQuestion,
-  editQuestion,
-} = questionSlice.actions;
+export const { removeAll, sort, deleteQuestion, editQuestion, toggleQuestion } =
+  questionSlice.actions;
 
 export { addItemAsync };
 

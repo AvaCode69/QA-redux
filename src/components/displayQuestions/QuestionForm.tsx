@@ -1,6 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
-const QuestionForm = ({
+interface QuestionFormProps {
+  inputValue: { question: string; answer: string };
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSaveClick: () => void;
+  error: string;
+}
+
+const QuestionForm: React.FC<QuestionFormProps> = ({
   inputValue,
   handleInputChange,
   handleSaveClick,

@@ -1,9 +1,12 @@
-import CreateQuestion from "./components/CreateQuestion";
-import QuestionsContainer from "./components/QuestionsContainer";
+import CreateQuestion from "./components/createQuestion/CreateQuestion";
+import QuestionsContainer from "./components/displayQuestions/QuestionsContainer";
+
 import { useSelector } from "react-redux";
+import { RootState } from "./store";
+import React from "react";
 
 function App() {
-  const { isLoading } = useSelector((store) => store.QA);
+  const { isLoading } = useSelector((store: RootState) => store.QA);
 
   return (
     <main>
@@ -13,10 +16,10 @@ function App() {
         {isLoading ? (
           <div className="loading" style={{ marginTop: "6rem" }}></div>
         ) : null}
-
         <CreateQuestion />
       </section>
     </main>
   );
 }
+
 export default App;
