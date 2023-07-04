@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeAll, sort } from "../features/question/questionSlice";
 import { FaInfoCircle } from "react-icons/fa";
 
-const Questions = () => {
+const QuestionsContainer = () => {
   const dispatch = useDispatch();
   const { questionItems, activeId } = useSelector((store) => store.QA);
   return (
@@ -42,4 +42,4 @@ const Questions = () => {
   );
 };
 
-export default Questions;
+export default QuestionsContainer;

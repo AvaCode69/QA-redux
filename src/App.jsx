@@ -1,5 +1,5 @@
 import CreateQuestion from "./components/CreateQuestion";
-import Questions from "./components/Questions";
+import QuestionsContainer from "./components/QuestionsContainer";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <main>
       <section className="container">
         <h1>The Awesome Q and A Tool</h1>
-        <Questions />
+        <QuestionsContainer />
         {isLoading ? (
           <div className="loading" style={{ marginTop: "6rem" }}></div>
         ) : null}
