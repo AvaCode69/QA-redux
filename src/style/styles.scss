@@ -60,6 +60,7 @@ h4 {
   color: #629edb;
   font-size: 20px;
   margin-left: 0.5rem;
+  position: relative;
 
   .tooltiptext {
     visibility: hidden;
@@ -70,6 +71,9 @@ h4 {
     border-radius: 6px;
     padding: 0.9rem;
     position: absolute;
+    bottom: -213%;
+    left: 85%;
+    transform: translateX(-50%);
     z-index: 1;
     font-size: 1rem;
   }
@@ -86,11 +90,11 @@ h4 {
     padding: 5px;
     z-index: 1;
   }
-}
 
-#bottom::before {
-  top: -5%;
-  left: 45%;
+  #bottom::before {
+    top: -5%;
+    left: 45%;
+  }
 }
 
 .title-box {

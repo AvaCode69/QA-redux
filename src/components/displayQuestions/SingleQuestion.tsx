@@ -83,6 +83,8 @@ const SingleQuestion: React.FC<SingleQuestionProps> = ({
           handleInputChange={handleInputChange}
           handleSaveClick={handleSaveClick}
           error={state.error}
+          handleToggle={handleToggle}
+          isActive={isActive}
         />
       ) : (
         <>
