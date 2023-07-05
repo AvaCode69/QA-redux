@@ -18,16 +18,17 @@ const CreateQuestion = () => {
 
   const handleQaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      inputValue: { ...prevState.inputValue, [name]: value },
-    }));
+    if (value.length === 0 || value[0] !== " ") {
+      setState((prevState) => ({
+        ...prevState,
+        inputValue: { ...prevState.inputValue, [name]: value },
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check if input values are empty or contain only whitespace
     if (
       state.inputValue.question.trim() === "" ||
       state.inputValue.answer.trim() === ""

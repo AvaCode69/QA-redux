@@ -1,5 +1,4 @@
-import CreateQuestion from "./components/createQuestion/CreateQuestion";
-import QuestionsContainer from "./components/displayQuestions/QuestionsContainer";
+import { CreateQuestion, QuestionsContainer } from "./components";
 
 import { useSelector } from "react-redux";
 import { RootState } from "./store";

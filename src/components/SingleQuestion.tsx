@@ -5,8 +5,8 @@ import {
   editQuestion,
 } from "../features/question/questionSlice";
 import { useState, useEffect } from "react";
-import QuestionForm from "./QuestionForm";
-import QuestionDetails from "./DisplayQuestion/QuestionDetails";
+import QuestionForm from "./displayQuestions/QuestionForm";
+import QuestionDetails from "./displayQuestions/QuestionDetails";
 import React from "react";
 
 interface SingleQuestionProps {

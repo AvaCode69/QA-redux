@@ -38,10 +38,13 @@ const SingleQuestion: React.FC<SingleQuestionProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setState({
-      ...state,
-      inputValue: { ...state.inputValue, [name]: value },
-    });
+
+    if (value.length === 0 || value[0] !== " ") {
+      setState({
+        ...state,
+        inputValue: { ...state.inputValue, [name]: value },
+      });
+    }
   };
 
   const handleEditClick = () => {

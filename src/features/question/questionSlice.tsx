@@ -43,12 +43,11 @@ const addItemAsync = createAsyncThunk(
       id: nanoid(),
     };
 
-    const state = getState() as { QA: QAState }; // Explicitly specify the state type
+    const state = getState() as { QA: QAState };
 
     const newQuestionItems = [...state.QA.questionItems, newQuestion];
 
-    // Simulating an API call delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     setLocalStorage(newQuestionItems);
     return newQuestion;
